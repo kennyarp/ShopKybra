@@ -101,7 +101,6 @@
       margin-top: 30px;
     }
 
-    /* Section chat auto */
     .chat-auto {
       background: #ffffff;
       padding: 20px;
@@ -134,6 +133,34 @@
       font-weight: bold;
     }
 
+    .questions-pred {
+      margin-top: 20px;
+    }
+
+    .questions-pred button {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      width: 100%;
+      background-color: #ecf0f1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .questions-pred button:hover {
+      background-color: #dcdde1;
+    }
+
+    .response-box {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 10px;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -153,7 +180,7 @@
 </div>
 
 <section class="products">
-
+  <!-- Produits ici (les mêmes que tu avais déjà) -->
   <div class="product">
     <img src="https://i.postimg.cc/vTyVgzkt/61-Hu-TM-4c-AL.jpg" alt="Casque Bluetooth">
     <h3>Casque Bluetooth</h3>
@@ -195,21 +222,29 @@
     <p>3 000 HTG</p>
     <a class="whatsapp-button" href="https://wa.me/50935196415?text=Salut%2C%20je%20veux%20les%20baskets%20montantes%20à%203000%20HTG.">Commander sur WhatsApp</a>
   </div>
-
 </section>
 
-<!-- ✅ Section Chat automatique ajoutée ici -->
 <section class="chat-auto">
   <h2>🤖 Kybra Chat Auto</h2>
-  <p><strong>Message :</strong></p>
   <div class="chat-message">
-    Bonjour 👋, si vous êtes intéressé par un produit, sachez que les commandes sont <strong>livrées sous 24h</strong> à Carrefour.
-    <br><br>
-    Le paiement peut se faire <strong>face à face</strong> ou via <strong>MonCash / NatCash</strong>. Une fois la transaction confirmée via WhatsApp, nous lançons la livraison 🚚.
-    <br><br>
+    Bonjour 👋, si vous êtes intéressé par un produit, sachez que les commandes sont <strong>livrées sous 24h</strong> à Carrefour.<br><br>
+    Le paiement peut se faire <strong>face à face</strong> ou via <strong>MonCash / NatCash</strong>. Une fois la transaction confirmée via WhatsApp, nous lançons la livraison 🚚.<br><br>
     Nous faisons de notre mieux pour vous satisfaire ! Merci de votre confiance 🙏.
   </div>
   <a href="https://wa.me/50935196415?text=Bonjour%2C%20j%27ai%20besoin%20de%20plus%20d%27informations%20concernant%20un%20produit.">Parler avec nous sur WhatsApp</a>
+
+  <div class="questions-pred">
+    <h3>❓ Questions fréquentes :</h3>
+    <button onclick="showAnswer(1)">Quels modes de paiement acceptez-vous ?</button>
+    <button onclick="showAnswer(2)">Puis-je commander si je suis hors de Carrefour ?</button>
+    <button onclick="showAnswer(3)">Quels sont les délais de livraison ?</button>
+    <button onclick="showAnswer(4)">Les produits sont-ils neufs ?</button>
+
+    <div id="rep1" class="response-box">Nous acceptons les paiements en espèces lors de la livraison, ainsi que par MonCash et NatCash.</div>
+    <div id="rep2" class="response-box">Pour l’instant, nous livrons uniquement à Carrefour. Nous espérons étendre nos zones prochainement.</div>
+    <div id="rep3" class="response-box">La livraison se fait en général sous 24 heures après confirmation de commande.</div>
+    <div id="rep4" class="response-box">Oui, tous nos produits sont neufs et soigneusement vérifiés avant livraison.</div>
+  </div>
 </section>
 
 <footer>
@@ -217,5 +252,12 @@
   <p>© 2025 Kybra. Tous droits réservés.</p>
 </footer>
 
+<script>
+  function showAnswer(num) {
+    document.querySelectorAll('.response-box').forEach(el => el.style.display = 'none');
+    document.getElementById('rep' + num).style.display = 'block';
+  }
+</script>
+
 </body>
-  </html>
+                                                                                                                                                                                    </html>
