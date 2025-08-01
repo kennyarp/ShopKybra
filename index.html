@@ -1,209 +1,241 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kybra - Boutique</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f8f9fa;
-      color: #333;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
     }
-    header, footer {
-      background-color: #111;
-      color: white;
-      padding: 10px;
-      text-align: center;
-    }
-    nav {
+
+    header {
       background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    nav {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
+      gap: 1rem;
+      background: #444;
+      padding: 0.5rem;
     }
+
     nav a {
       color: white;
-      padding: 14px 20px;
       text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      transition: background 0.3s;
     }
+
     nav a:hover {
-      background-color: #555;
+      background: #555;
     }
-    .notice {
-      background-color: #ffd700;
-      color: #000;
-      text-align: center;
-      padding: 10px;
-      font-weight: bold;
-    }
+
     .container {
-      padding: 20px;
+      padding: 1rem;
+      max-width: 1000px;
+      margin: auto;
     }
-    .product {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin: 20px auto;
-      max-width: 400px;
+
+    .alert {
+      background: #ffeeba;
+      border-left: 5px solid #f0ad4e;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
       text-align: center;
-      padding: 20px;
     }
+
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      background: white;
+      text-align: center;
+    }
+
     .product img {
       max-width: 100%;
+      border-radius: 10px;
       height: auto;
-      border-radius: 12px;
     }
+
     .btn-whatsapp {
       display: inline-block;
-      margin-top: 10px;
-      background-color: #25D366;
+      background: #25D366;
       color: white;
-      padding: 10px 20px;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
       text-decoration: none;
-      border-radius: 8px;
+      border-radius: 5px;
+      transition: background 0.3s;
     }
+
+    .btn-whatsapp:hover {
+      background: #128C7E;
+    }
+
     .chatbot {
       position: fixed;
-      bottom: 120px;
-      right: 20px;
+      bottom: 20px;
+      left: 20px;
       background: white;
       border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      max-width: 280px;
-      z-index: 999;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
+
     .chatbot button {
       display: block;
-      margin: 10px 0;
-      background-color: #eee;
+      margin: 0.3rem 0;
+      width: 100%;
       border: none;
-      padding: 10px;
-      border-radius: 8px;
+      background: #eee;
+      padding: 0.5rem;
+      border-radius: 5px;
       cursor: pointer;
     }
-    .response {
-      margin-top: 10px;
-      background-color: #f0f0f0;
-      padding: 8px;
-      border-radius: 8px;
+
+    .chatbot-response {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #333;
     }
+
     .game {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 40px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 2rem;
+      border: 1px solid #ccc;
+    }
+
+    footer {
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Kybra - Boutique</h1>
+  </header>
 
-<header>
-  <h1>Kybra - Boutique</h1>
-</header>
+  <nav>
+    <a href="#">Accueil</a>
+    <a href="#">À propos</a>
+    <a href="#">Vendeur</a>
+    <a href="#">Contact</a>
+  </nav>
 
-<nav>
-  <a href="#accueil">Accueil</a>
-  <a href="#about">À propos</a>
-  <a href="#vendeur">Vendeur</a>
-  <a href="#contact">Contact</a>
-</nav>
+  <div class="container">
+    <div class="alert">🚚 Livraison disponible uniquement à Carrefour pour le moment.</div>
 
-<div class="notice">📍 Livraison disponible uniquement à Carrefour pour le moment.</div>
+    <div class="product">
+      <img src="https://i.postimg.cc/FHPkhmm7/raitown-montre-homme-ultra-mince-precision-et-esthetique-elegante.png" alt="Montre">
+      <h2>Montre Homme Élégante</h2>
+      <p>Prix : 1500 HTG</p>
+      <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Bonjour%20je%20souhaite%20commander%20la%20montre%20Homme%20%C3%A9l%C3%A9gante%20%C3%A0%201500HTG">Commander sur WhatsApp</a>
+    </div>
 
-<div class="container" id="accueil">
+    <div class="product">
+      <img src="https://i.postimg.cc/c1VsmCLP/353449581cc22299676b443695a9a3f5.jpg" alt="Chaussures Femme">
+      <h2>Chaussures Femme Chic</h2>
+      <p>Prix : 2000 HTG</p>
+      <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20les%20chaussures%20femmes%20%C3%A0%202000HTG">Commander sur WhatsApp</a>
+    </div>
 
-  <div class="product">
-    <img src="https://i.postimg.cc/FHPkhmm7/raitown-montre-homme-ultra-mince-precision-et-esthetique-elegante.png" alt="Montre">
-    <h2>Montre Homme Élégante</h2>
-    <p>Prix : 1500 HTG</p>
-    <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Bonjour%20je%20souhaite%20commander%20la%20montre%20Homme%20%C3%A9l%C3%A9gante%20%C3%A0%201500HTG">Commander sur WhatsApp</a>
+    <div class="product">
+      <img src="https://i.postimg.cc/dVDtmCPV/61-Hu-TM-4c-AL.jpg" alt="Casque Bluetooth">
+      <h2>Casque Bluetooth</h2>
+      <p>Prix : 2500 HTG</p>
+      <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Je%20veux%20commander%20le%20casque%20bluetooth%20%C3%A0%202500HTG">Commander sur WhatsApp</a>
+    </div>
+
+    <div class="product">
+      <img src="https://i.postimg.cc/JhZ8PcTM/baskets-brillantes-montantes-homme-femme-avec-laniere-haute-sw9936-01-1-1.jpg" alt="Basket KYBRA">
+      <h2>Basket Montante Brillante</h2>
+      <p>Prix : 3200 HTG</p>
+      <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20la%20basket%20brillante%20%C3%A0%203200HTG">Commander sur WhatsApp</a>
+    </div>
+
+    <div class="product">
+      <img src="https://i.postimg.cc/NGk0gT7Y/476d917e399f40a2b3e47b7912f96372.jpg" alt="T-shirt King & Queen">
+      <h2>T-shirt King & Queen</h2>
+      <p>Prix : 1800 HTG</p>
+      <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Bonjour%20je%20souhaite%20commander%20le%20T-shirt%20King%20%26%20Queen%20%C3%A0%201800HTG">Commander sur WhatsApp</a>
+    </div>
+
+    <div class="game">
+      <h2>🎯 Jeu KYBRA – Trouve le bon code et gagne !</h2>
+      <p>Devine le numéro caché entre 1 et 1000. Tu as 7 essais ! Si tu trouves, un bouton WhatsApp s’affiche et tu remportes un produit gratuit.</p>
+      <input type="number" id="guessInput" placeholder="Entre un nombre entre 1 et 1000" />
+      <button onclick="checkGuess()">Valider</button>
+      <p id="gameMessage"></p>
+      <div id="winButton" style="display:none;">
+        <a class="btn-whatsapp" href="https://wa.me/50935196415?text=J’ai%20trouvé%20le%20code%20gagnant%20du%20jeu%20Kybra%20et%20je%20réclame%20mon%20cadeau!">🎉 Réclamer mon produit gratuit</a>
+      </div>
+      <p>⚠️ Une fois les 7 essais épuisés, le jeu se réinitialise automatiquement et le code change. Recharger la page ne vous aidera pas 😉 Seul le premier qui envoie le bon code gagne !</p>
+    </div>
   </div>
 
-  <div class="product">
-    <img src="https://i.postimg.cc/c1VsmCLP/353449581cc22299676b443695a9a3f5.jpg" alt="Chaussures Femme">
-    <h2>Chaussures Femme Chic</h2>
-    <p>Prix : 2000 HTG</p>
-    <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20les%20chaussures%20femmes%20%C3%A0%202000HTG">Commander sur WhatsApp</a>
+  <div class="chatbot">
+    <strong>🤖 Assistance KYBRA</strong>
+    <button onclick="showAnswer('📦 Livraison : 24h à 48h à Carrefour')">📦 Délais de livraison ?</button>
+    <button onclick="showAnswer('💳 Paiement à la livraison en cash ou MonCash')">💳 Moyens de paiement ?</button>
+    <button onclick="showAnswer('🛍️ Produits : Montre, T-shirt, Chaussures, Casque, Basket')">🛍️ Quels produits disponibles ?</button>
+    <div class="chatbot-response" id="chatbotAnswer"></div>
   </div>
 
-  <div class="product">
-    <img src="https://i.postimg.cc/dVDtmCPV/61-Hu-TM-4c-AL.jpg" alt="Casque Bluetooth">
-    <h2>Casque Bluetooth</h2>
-    <p>Prix : 2500 HTG</p>
-    <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Je%20veux%20commander%20le%20casque%20bluetooth%20%C3%A0%202500HTG">Commander sur WhatsApp</a>
-  </div>
+  <footer>
+    <p>© 2025 Kybra. Tous droits réservés.</p>
+  </footer>
 
-  <div class="product">
-    <img src="https://i.postimg.cc/JhZ8PcTM/baskets-brillantes-montantes-homme-femme-avec-laniere-haute-sw9936-01-1-1.jpg" alt="Basket KYBRA">
-    <h2>Basket Montante Brillante</h2>
-    <p>Prix : 3200 HTG</p>
-    <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20la%20basket%20brillante%20%C3%A0%203200HTG">Commander sur WhatsApp</a>
-  </div>
+  <script>
+    const correctNumber = Math.floor(Math.random() * 1000) + 1;
+    let attempts = 0;
 
-  <div class="product">
-    <img src="https://i.postimg.cc/NGk0gT7Y/476d917e399f40a2b3e47b7912f96372.jpg" alt="T-shirt King & Queen">
-    <h2>T-shirt King & Queen</h2>
-    <p>Prix : 1800 HTG</p>
-    <a class="btn-whatsapp" href="https://wa.me/50935196415?text=Bonjour%20je%20souhaite%20commander%20le%20T-shirt%20King%20%26%20Queen%20%C3%A0%201800HTG">Commander sur WhatsApp</a>
-  </div>
+    function checkGuess() {
+      const userGuess = parseInt(document.getElementById("guessInput").value);
+      const message = document.getElementById("gameMessage");
 
-  <div class="game">
-    <h2>🎯 Jeu KYBRA – Trouve le bon code et gagne !</h2>
-    <p>Devine le numéro caché entre 1 et 1000. Tu as 7 essais !</p>
-    <input type="number" id="guess" placeholder="Entre 1 et 1000">
-    <button onclick="checkGuess()">Valider</button>
-    <p id="gameMessage"></p>
-    <a id="winnerLink" style="display:none;" class="btn-whatsapp" href="https://wa.me/50935196415?text=J’ai%20trouvé%20le%20code%20gagnant%20du%20jeu%20Kybra%20et%20je%20réclame%20mon%20cadeau!">🎉 Réclamer mon produit gratuit</a>
-    <p><strong>⚠️ Une fois les 7 essais épuisés, le jeu se réinitialise automatiquement et le code change. Recharger la page ne vous aidera pas 😉 Seul le premier qui envoie le bon code gagne !</strong></p>
-  </div>
+      if (isNaN(userGuess)) {
+        message.textContent = "Entrez un nombre valide.";
+        return;
+      }
 
-</div>
-
-<div class="chatbot">
-  <h3>🤖 Assistance KYBRA</h3>
-  <button onclick="showResponse('📦 Livraison dans 24h à Carrefour.')">📦 Délais de livraison ?</button>
-  <button onclick="showResponse('💳 Paiement à la livraison en cash ou MonCash.')">💳 Moyens de paiement ?</button>
-  <button onclick="showResponse('🛍️ Montres, t-shirts, casques, baskets et plus encore.')">🛍️ Quels produits disponibles ?</button>
-  <div class="response" id="response"></div>
-</div>
-
-<footer>
-  © 2025 Kybra. Tous droits réservés.
-</footer>
-
-<script>
-  const numberToGuess = Math.floor(Math.random() * 1000) + 1;
-  let attempts = 0;
-
-  function checkGuess() {
-    const guess = parseInt(document.getElementById('guess').value);
-    const msg = document.getElementById('gameMessage');
-    if (isNaN(guess)) {
-      msg.innerText = "Entrez un nombre valide.";
-      return;
+      attempts++;
+      if (userGuess === correctNumber) {
+        message.textContent = "🎉 Bravo ! Tu as deviné le bon numéro.";
+        document.getElementById("winButton").style.display = "block";
+      } else if (attempts >= 7) {
+        message.textContent = "❌ Tu as utilisé tes 7 essais. Le code a été réinitialisé.";
+        setTimeout(() => window.location.reload(), 3000);
+      } else if (userGuess < correctNumber) {
+        message.textContent = "🔼 Trop bas ! Essaye encore.";
+      } else {
+        message.textContent = "🔽 Trop haut ! Essaye encore.";
+      }
     }
-    attempts++;
-    if (guess === numberToGuess) {
-      msg.innerText = `Bravo ! Le bon numéro était ${numberToGuess}`;
-      document.getElementById('winnerLink').style.display = 'inline-block';
-    } else if (attempts >= 7) {
-      msg.innerText = `Perdu 😢 Le bon numéro était ${numberToGuess}. La page va se recharger.`;
-      setTimeout(() => location.reload(), 3000);
-    } else {
-      msg.innerText = guess < numberToGuess ? "Trop petit !" : "Trop grand !";
+
+    function showAnswer(text) {
+      document.getElementById("chatbotAnswer").textContent = text;
     }
-  }
-
-  function showResponse(text) {
-    document.getElementById('response').innerText = text;
-  }
-</script>
-
+  </script>
 </body>
 </html>
