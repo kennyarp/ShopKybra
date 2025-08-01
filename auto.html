@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Automatique – KYBRA</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 20px; }
+    .chat-box { background: #fff; border-radius: 10px; padding: 20px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .message { margin: 10px 0; padding: 10px 15px; border-radius: 15px; max-width: 85%; }
+    .bot { background-color: #e1ffc7; align-self: flex-start; }
+    .user { background-color: #d0e7ff; align-self: flex-end; text-align: right; }
+    .messages { display: flex; flex-direction: column; gap: 10px; }
+    .button-container { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
+    button { padding: 10px; border: none; background: #25D366; color: white; border-radius: 8px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <div class="chat-box">
+    <h2>💬 Chat Automatique – KYBRA</h2>
+    <div class="messages" id="chat">
+      <div class="message bot">Bienvenue sur KYBRA 👋 Comment puis-je vous aider ?</div>
+    </div>
+
+    <div class="button-container">
+      <button onclick="sendQuestion('Comment passer une commande ?')">📦 Commander</button>
+      <button onclick="sendQuestion('Quels sont les moyens de paiement ?')">💳 Paiement</button>
+      <button onclick="sendQuestion('En combien de temps ma commande arrive ?')">⏱️ Livraison</button>
+      <button onclick="sendQuestion('Comment suis-je sûr de recevoir mon produit ?')">🔐 Confiance</button>
+    </div>
+  </div>
+
+  <script>
+    const chat = document.getElementById("chat");
+
+    function sendQuestion(text) {
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.textContent = text;
+      chat.appendChild(userMsg);
+
+      setTimeout(() => {
+        const botMsg = document.createElement("div");
+        botMsg.className = "message bot";
+        botMsg.innerHTML = getResponse(text);
+        chat.appendChild(botMsg);
+        chat.scrollTop = chat.scrollHeight;
+      }, 700);
+    }
+
+    function getResponse(q) {
+      if (q.includes("commande")) {
+        return "Pour commander, choisissez un produit sur notre page 👉 <a href='produits.html'>Produits</a> puis cliquez sur le bouton WhatsApp. Un message automatique sera prêt à envoyer. Facile et rapide 📲";
+      }
+      if (q.includes("paiement")) {
+        return "Le paiement se fait 💵 face à face à la livraison ou via MonCash / NatCash. Vous recevrez tous les détails dans la conversation WhatsApp. C’est simple et sécurisé ✅";
+      }
+      if (q.includes("temps") || q.includes("arrive")) {
+        return "Toutes les commandes sont livrées **sous 24H** ⏱️ à Carrefour. La ponctualité est notre priorité !";
+      }
+      if (q.includes("sûr") || q.includes("recevoir") || q.includes("confiance")) {
+        return "Dès que vous passez la commande, on vous confirme par WhatsApp. Le produit vous est remis en main propre ou via un livreur KYBRA 🚚. Pas de surprise, tout est transparent ✅";
+      }
+      return "Je n’ai pas bien compris. Essayez un autre bouton ci-dessus 🙏";
+    }
+  </script>
+
+</body>
+</html>
