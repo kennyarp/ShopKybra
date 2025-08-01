@@ -2,172 +2,164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KYBRA | Boutique en ligne</title>
+  <title>KYBRA - Boutique</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    * {
-      box-sizing: border-box;
-    }
     body {
       font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
-      color: #333;
     }
-    header {
+    header, footer {
       background-color: #111;
       color: white;
-      padding: 10px 20px;
+      padding: 15px;
+      text-align: center;
+    }
+    nav {
+      background-color: #333;
+      padding: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
     }
-    header h1 {
-      font-size: 24px;
-      margin: 0;
-    }
     nav a {
       color: white;
-      margin: 0 10px;
+      margin: 5px;
       text-decoration: none;
-      font-weight: bold;
-    }
-    .hero {
-      padding: 40px 20px 10px;
-      text-align: center;
-      background-color: #fff;
-      border-bottom: 1px solid #ccc;
-    }
-    .warning {
-      background-color: #ffefc0;
-      padding: 10px;
-      margin: 10px;
-      border: 1px solid #d1a000;
-      border-radius: 8px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
     }
     .product {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 10px;
+      margin: 15px;
       background-color: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      text-align: center;
+      width: 280px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .product img {
-      max-width: 100%;
-      height: 200px;
-      object-fit: cover;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .note {
+      background: #fff3cd;
+      color: #856404;
+      padding: 10px;
+      margin: 10px;
       border-radius: 8px;
+      border: 1px solid #ffeeba;
     }
-    .product h3 {
-      margin: 10px 0 5px;
+    .chatbox {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 12px;
+      max-width: 300px;
     }
-    .whatsapp-btn {
-      background-color: #25D366;
+    .chatbox button {
+      margin: 3px;
+      background-color: #007bff;
       color: white;
-      padding: 10px 15px;
       border: none;
       border-radius: 8px;
+      padding: 5px 10px;
       cursor: pointer;
-      font-weight: bold;
-      margin-top: 10px;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .chatbot {
-      background-color: #fff;
-      margin: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-    .chatbot h3 {
-      margin-top: 0;
-    }
-    .chat-question {
-      margin: 5px 0;
-      cursor: pointer;
-      color: #007BFF;
-      font-weight: bold;
-    }
-    .chat-answer {
-      display: none;
-      margin: 5px 0 10px;
-    }
-    footer {
-      background-color: #111;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
     }
   </style>
 </head>
-<body>  <header>
-    <h1>KYBRA</h1>
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="vendeur.html">Vendeur</a>
-      <a href="contact.html">Contact</a>
-      <a href="about.html">À propos</a>
-    </nav>
-  </header>  <div class="warning">⚠️ Livraison disponible uniquement à Carrefour pour le moment. Paiement en main propre, via MonCash ou NatCash. Transaction confirmée via WhatsApp.</div>  <div class="hero">
-    <h2>Bienvenue sur KYBRA</h2>
-    <p>Découvrez nos produits de qualité et commandez facilement via WhatsApp.</p>
-  </div>  <section class="products">
+<body><header>
+  <h1>Bienvenue sur KYBRA</h1>
+</header><nav>
+  <a href="#">Accueil</a>
+  <a href="#produits">Produits</a>
+  <a href="#jeu">Mini-jeu</a>
+  <a href="vendeur.html">Devenir Vendeur</a>
+  <a href="contact.html">Contact</a>
+</nav><div class="note">
+  Livraison disponible uniquement à Carrefour pour le moment.
+</div><section id="produits">
+  <h2 style="text-align:center">Nos Produits</h2>
+  <div class="products">
     <div class="product">
-      <img src="https://i.postimg.cc/NGk0gT7Y/476d917e399f40a2b3e47b7912f96372.jpg" alt="T-Shirt King & Queen">
-      <h3>T-Shirt King & Queen</h3>
-      <p>1 200 HTG</p>
-      <a class="whatsapp-btn" href="https://wa.me/50935196415?text=Je%20veux%20commander%20le%20T-Shirt%20King%20%26%20Queen%20pour%201200HTG">Commander</a>
+      <img src="https://i.postimg.cc/c1VsmCLP/353449581cc22299676b443695a9a3f5.jpg" alt="Chaussures Femme">
+      <h3>Chaussures Femme</h3>
+      <p>Élégantes et confortables</p>
+      <p><strong>Prix :</strong> 2 500 HTG</p>
+      <a href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20les%20Chaussures%20Femme%20pour%202500HTG" target="_blank">Commander sur WhatsApp</a>
     </div>
     <div class="product">
-      <img src="https://i.postimg.cc/c1VsmCLP/353449581cc22299676b443695a9a3f5.jpg" alt="Chaussures femme">
-      <h3>Chaussures femme</h3>
-      <p>2 500 HTG</p>
-      <a class="whatsapp-btn" href="https://wa.me/50935196415?text=Je%20veux%20commander%20les%20chaussures%20femme%20pour%202500HTG">Commander</a>
+      <img src="https://i.postimg.cc/NGk0gT7Y/476d917e399f40a2b3e47b7912f96372.jpg" alt="T-shirt King & Queen">
+      <h3>T-shirt King & Queen</h3>
+      <p>Disponible pour couple</p>
+      <p><strong>Prix :</strong> 2 000 HTG</p>
+      <a href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20le%20T-shirt%20King%20%26%20Queen%20pour%202000HTG" target="_blank">Commander sur WhatsApp</a>
     </div>
     <div class="product">
-      <img src="https://i.postimg.cc/yxwZTCZT/montre.jpg" alt="Montre classique">
-      <h3>Montre classique</h3>
-      <p>1 000 HTG</p>
-      <a class="whatsapp-btn" href="https://wa.me/50935196415?text=Je%20veux%20commander%20la%20montre%20classique%20pour%201000HTG">Commander</a>
-    </div>
-    <div class="product">
-      <img src="https://i.postimg.cc/9M8vYbjn/sac.jpg" alt="Sac à main">
-      <h3>Sac à main élégant</h3>
-      <p>1 800 HTG</p>
-      <a class="whatsapp-btn" href="https://wa.me/50935196415?text=Je%20veux%20commander%20le%20sac%20%C3%A0%20main%20pour%201800HTG">Commander</a>
-    </div>
-    <div class="product">
-      <img src="https://i.postimg.cc/Dz5w6Kgz/casque.jpg" alt="Casque Bluetooth">
+      <img src="https://i.postimg.cc/3rCV8LV2/casque-bluetooth.jpg" alt="Casque Bluetooth">
       <h3>Casque Bluetooth</h3>
-      <p>2 500 HTG</p>
-      <a class="whatsapp-btn" href="https://wa.me/50935196415?text=Je%20veux%20commander%20le%20casque%20Bluetooth%20pour%202500HTG">Commander</a>
+      <p>Son clair et design moderne</p>
+      <p><strong>Prix :</strong> 2 500 HTG</p>
+      <a href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20le%20Casque%20Bluetooth%20pour%202500HTG" target="_blank">Commander sur WhatsApp</a>
     </div>
-  </section>  <section class="chatbot">
-    <h3>🤖 Questions fréquentes</h3>
-    <div class="chat-question" onclick="toggleAnswer(0)">Quels sont les moyens de paiement ?</div>
-    <div class="chat-answer">Nous acceptons les paiements en main propre, via MonCash ou NatCash. La transaction est confirmée via WhatsApp.</div><div class="chat-question" onclick="toggleAnswer(1)">Combien de temps prend la livraison ?</div>
-<div class="chat-answer">La livraison se fait en moins de 24 heures à Carrefour uniquement.</div>
-
-<div class="chat-question" onclick="toggleAnswer(2)">Est-ce que je peux payer à la livraison ?</div>
-<div class="chat-answer">Oui, le paiement à la livraison est accepté.</div>
-
-  </section>  <!-- Mini-jeu déjà inclus précédemment : ne pas toucher -->  <script>
-    const answers = document.querySelectorAll('.chat-answer');
-    function toggleAnswer(index) {
-      answers[index].style.display = answers[index].style.display === 'block' ? 'none' : 'block';
+    <div class="product">
+      <img src="https://i.postimg.cc/qM31jCVT/montre-homme.jpg" alt="Montre de Luxe">
+      <h3>Montre de Luxe</h3>
+      <p>Design élégant et moderne</p>
+      <p><strong>Prix :</strong> 3 000 HTG</p>
+      <a href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20la%20Montre%20de%20Luxe%20pour%203000HTG" target="_blank">Commander sur WhatsApp</a>
+    </div>
+    <div class="product">
+      <img src="https://i.postimg.cc/Wz3j9NVX/sac-main.jpg" alt="Sac à main">
+      <h3>Sac à main</h3>
+      <p>Parfait pour toute occasion</p>
+      <p><strong>Prix :</strong> 2 800 HTG</p>
+      <a href="https://wa.me/50935196415?text=Je%20souhaite%20commander%20le%20Sac%20à%20main%20pour%202800HTG" target="_blank">Commander sur WhatsApp</a>
+    </div>
+  </div>
+</section><section id="jeu" style="padding: 20px">
+  <h2>🎮 Mini-jeu KYBRA – Gagne un produit gratuit !</h2>
+  <p>Un code gagnant est caché entre <strong>1 et 1000</strong>. Tu as <strong>7 essais</strong> pour le deviner. Si tu réussis, tu seras redirigé vers WhatsApp avec un message automatique pour réclamer ton cadeau !</p>
+  <p>⚠️ Si tu rates les 7 tentatives, inutile de rafraîchir : le code change aussi !</p>
+  <input type="number" id="guessInput" placeholder="Devine le code" />
+  <button onclick="checkGuess()">Valider</button>
+  <p id="feedback"></p>
+  <script>
+    let winningNumber = Math.floor(Math.random() * 1000) + 1;
+    let attempts = 0;
+    function checkGuess() {
+      const guess = parseInt(document.getElementById('guessInput').value);
+      const feedback = document.getElementById('feedback');
+      attempts++;
+      if (guess === winningNumber) {
+        feedback.innerHTML = `🎉 Bravo ! Cliquez ici pour <a href="https://wa.me/50935196415?text=J'ai%20trouvé%20le%20code%20gagnant%20${winningNumber}%20sur%20le%20jeu%20KYBRA%20!%20Je%20réclame%20mon%20cadeau%20gratuit">réclamer sur WhatsApp</a>`;
+      } else if (attempts >= 7) {
+        feedback.innerText = "😢 Tu as épuisé tes 7 essais. Le code a été réinitialisé.";
+        winningNumber = Math.floor(Math.random() * 1000) + 1;
+        attempts = 0;
+      } else if (guess < winningNumber) {
+        feedback.innerText = "C'est plus haut !";
+      } else {
+        feedback.innerText = "C'est plus bas !";
+      }
     }
-  </script>  <footer>
-    © 2025 Kybra. Tous droits réservés.
-  </footer></body>
-</html>
+  </script>
+</section><div class="chatbox">
+  <strong>Questions ?</strong><br>
+  <button onclick="alert('Les livraisons se font à Carrefour sous 24H.')">Livraison ?</button>
+  <button onclick="alert('Paiement sur place ou via Moncash/Natcash. Confirmation via WhatsApp.')">Paiement ?</button>
+  <button onclick="alert('Oui, vous pouvez devenir vendeur ! Cliquez sur le menu Devenir Vendeur.')">Devenir vendeur ?</button>
+</div><footer>
+  © 2025 Kybra. Tous droits réservés.
+</footer></body>
+    </html>
