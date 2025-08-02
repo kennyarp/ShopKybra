@@ -161,16 +161,14 @@
   </style>
 </head>
 <body>
-  <!-- 🌐 Barre de navigation KYBRA -->
   <nav>
     <a href="index.html">🏠 Accueil</a>
     <a href="about.html">ℹ️ À propos</a>
     <a href="vendeur.html">🛍 Vendeur</a>
     <a href="contact.html">📞 Contact</a>
-    <a href="assistant.html">🤖 Assistant</a>
+    <a href="assistant.html" class="active">🤖 Assistant</a>
   </nav>
 
-  <!-- 🤖 Assistant KYBRA -->
   <div class="chatbox" id="chat">
     <div class="message bot">
       <img src="https://i.imgur.com/botAvatar.png" alt="bot" class="avatar">
@@ -224,7 +222,7 @@
 
     function loadOptions() {
       options.innerHTML = '';
-      const shuffled = questions.sort(() => 0.5 - Math.random());
+      const shuffled = [...questions].sort(() => 0.5 - Math.random());
       shuffled.forEach(q => {
         const btn = document.createElement("button");
         btn.textContent = q;
@@ -262,9 +260,16 @@
 
       appendMessage(response, "bot");
       setTimeout(() => ratingBox.style.display = 'block', 3000);
-
-      if (!inputText) loadOptions();
+      loadOptions();
     }
 
     function rate(score) {
-      appendMessage(`Merci pour ta note de ${score} étoile[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/c4software/bts-sio/tree/16f33285846e5ab07801a1fa25fee0a21f3173e8/tp%2Fjavascript%2Ftp2.md?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")
+      appendMessage(`Merci pour ta note de ${score} étoile${score > 1 ? 's' : ''} ⭐`, "bot");
+      ratingBox.style.display = 'none';
+    }
+
+    // Lancement des options au chargement
+    window.onload = loadOptions;
+  </script>
+</body>
+</html>
