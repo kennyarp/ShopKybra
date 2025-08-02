@@ -5,202 +5,237 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Assistant Kybra</title>
   <style>
+    :root {
+      --bot-bg: #e0f7fa;
+      --user-bg: #c8e6c9;
+      --primary-color: #4CAF50;
+      --hover-color: #388E3C;
+      --accent: #2196F3;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
     }
 
-    header {
-      background: #111;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .chat-container {
+    .chatbox {
       max-width: 600px;
-      margin: 2rem auto;
+      margin: 40px auto;
       background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .message {
+      margin: 12px 0;
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 80%;
+      line-height: 1.6;
+      animation: fadeIn 0.5s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bot {
+      background-color: var(--bot-bg);
+      align-self: flex-start;
+    }
+
+    .user {
+      background-color: var(--user-bg);
+      align-self: flex-end;
+      margin-left: auto;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .options button {
+      flex: 1 1 45%;
+      padding: 12px;
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
       border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: background 0.3s;
     }
 
-    .chat-box {
-      min-height: 300px;
-      max-height: 400px;
-      overflow-y: auto;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background: #fafafa;
-    }
-
-    .chat-box p {
-      margin: 0.5rem 0;
+    .options button:hover {
+      background-color: var(--hover-color);
     }
 
     .input-area {
+      margin-top: 20px;
       display: flex;
-      gap: 0.5rem;
+      gap: 10px;
     }
 
-    input {
+    input[type="text"] {
       flex: 1;
-      padding: 0.7rem;
+      padding: 12px;
+      border-radius: 12px;
       border: 1px solid #ccc;
-      border-radius: 10px;
     }
 
-    button {
-      padding: 0.7rem 1.2rem;
-      border: none;
-      background: #28a745;
+    button.send {
+      padding: 12px 16px;
+      background-color: var(--accent);
       color: white;
-      border-radius: 10px;
+      border: none;
+      border-radius: 12px;
       cursor: pointer;
     }
 
-    .questions {
-      margin-top: 1rem;
+    .rating {
+      margin-top: 20px;
     }
 
-    .questions button {
-      margin: 5px;
-      background: #007bff;
-      border: none;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-
-    #rating span {
+    .rating span {
       font-size: 24px;
       cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .rating span:hover {
       color: gold;
+      transform: scale(1.3);
     }
 
-    .footer-btn {
-      display: block;
-      text-align: center;
-      margin-top: 2rem;
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
     }
 
-    .footer-btn a {
-      background: #222;
-      color: white;
-      padding: 0.8rem 1.5rem;
-      border-radius: 10px;
-      text-decoration: none;
+    @media (max-width: 600px) {
+      .options button {
+        flex: 1 1 100%;
+      }
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <h1>Assistant Kybra</h1>
-    <p>Pose-moi une question ou sélectionne une option prédéfinie</p>
-  </header>
-
-  <div class="chat-container">
-    <div class="chat-box" id="chat">
-      <p><strong>Assistant :</strong> Salut ! Je suis l’assistant de Kybra 👋. En quoi puis-je t’aider ?</p>
+  <div class="chatbox" id="chat">
+    <div class="message bot">
+      <img src="https://i.imgur.com/botAvatar.png" alt="bot" class="avatar">
+      👋 Bienvenue chez Kybra Assistant. Pose ta question ou sélectionne une option.
     </div>
+
+    <div class="options" id="options"></div>
 
     <div class="input-area">
-      <input type="text" id="userInput" placeholder="Écris ta question ici..."/>
-      <button onclick="handleUserInput()">Envoyer</button>
+      <input type="text" id="userInput" placeholder="Pose ta question ici..." />
+      <button class="send" onclick="handleUserInput()">Envoyer</button>
     </div>
 
-    <div class="questions">
-      <button onclick="quickQuestion('C\'est quoi Kybra ?')">C'est quoi Kybra ?</button>
-      <button onclick="quickQuestion('Quels produits vendez-vous ?')">Quels produits ?</button>
-      <button onclick="quickQuestion('Qui est Kenny 😂')">Kenny 😂</button>
-      <button onclick="quickQuestion('Où livrez-vous ?')">Où livrez-vous ?</button>
-      <button onclick="quickQuestion('Site en développement ?')">Le site est-il prêt ?</button>
+    <div class="rating" id="rating" style="display:none;">
+      <p>⭐ Comment évalues-tu mon aide ?</p>
+      <span onclick="rate(1)">★</span>
+      <span onclick="rate(2)">★</span>
+      <span onclick="rate(3)">★</span>
+      <span onclick="rate(4)">★</span>
+      <span onclick="rate(5)">★</span>
     </div>
-
-    <!-- Évaluation -->
-    <div style="text-align: center; margin-top: 2rem;">
-      <p>Tu trouves l’assistant utile ? Note-moi ici 👇</p>
-      <div id="rating">
-        <span onclick="rate(1)">⭐</span>
-        <span onclick="rate(2)">⭐</span>
-        <span onclick="rate(3)">⭐</span>
-        <span onclick="rate(4)">⭐</span>
-        <span onclick="rate(5)">⭐</span>
-      </div>
-      <p id="rating-msg" style="margin-top: 0.5rem;"></p>
-    </div>
-
-    <!-- Retour à l’accueil -->
-    <div class="footer-btn">
-      <a href="index.html">⬅️ Retour à l'accueil Kybra</a>
-    </div>
-
   </div>
 
   <script>
     const chat = document.getElementById("chat");
+    const options = document.getElementById("options");
+    const userInput = document.getElementById("userInput");
+    const ratingBox = document.getElementById("rating");
+
+    const questions = [
+      "Quels sont les prix des baskets ?",
+      "Comment fonctionne la livraison ?",
+      "Quels moyens de paiement acceptez-vous ?",
+      "Qu'est-ce que Kybra ?",
+      "Comment commander une montre ?",
+      "Livrez-vous en dehors de Carrefour ?",
+      "Qui est Kenny ?",
+      "Quels produits recommandez-vous ?"
+    ];
 
     const responses = {
-      "c'est quoi kybra": "Kybra est une boutique en ligne en développement qui propose des produits tendance comme des chaussures, montres, casques Bluetooth, sacs, etc. 🛍️",
-      "produits": "Nous proposons : Casques Bluetooth, Chaussures, Sacs à main, Montres, T-shirts 'King & Queen', etc. Clique sur 'Commander sur WhatsApp' sur la page d’accueil ! 📦",
-      "livrez": "Pour le moment, les livraisons sont disponibles uniquement à Carrefour (Haïti). 📍",
-      "kenny 😂": "Ah Kenny 😂 ! C’est mon créateur, un gars passionné. Que veux-tu savoir de lui ? 😄",
-      "tout savoir": "Demande-lui directement 😂",
-      "développement": "Le site est toujours en développement, certaines fonctionnalités peuvent ne pas être finales. Merci pour ta patience ! 🔧",
+      "baskets": "👟 Nos baskets brillantes sont disponibles pour seulement 2500 HTG ! Tu veux commander maintenant ? 😄",
+      "livraison": "📦 Pour le moment, nous livrons uniquement à Carrefour. Reste connecté, on s’étend bientôt !",
+      "paiement": "💳 Nous acceptons le paiement en espèces à la livraison, via MonCash ou NatCash.",
+      "kybra": "💎 Kybra est une jeune boutique en ligne stylée créée pour te proposer des produits tendance à petit prix. Tu veux voir les nouveautés ?",
+      "montre": "⌚ La montre élégante est à 2000 HTG. Elle est fine, classe et parfaite pour un cadeau ! Tu veux que je t’envoie le lien ?",
+      "carrefour": "🚚 Pour l’instant oui. On travaille dur pour desservir d'autres zones bientôt. Tu veux être notifié ?",
+      "kenny": "😂 Kenny c’est mon créateur. Que veux-tu savoir sur lui ?",
+      "recommandez": "🛍 On recommande les montres, les baskets et les sweats exclusifs KYBRA. Tu veux voir des photos ?"
     };
 
-    function handleUserInput() {
-      const input = document.getElementById("userInput").value.trim();
-      if (!input) return;
-      addMessage("Vous", input);
+    function loadOptions() {
+      options.innerHTML = '';
+      const shuffled = questions.sort(() => 0.5 - Math.random());
+      shuffled.forEach(q => {
+        const btn = document.createElement("button");
+        btn.textContent = q;
+        btn.onclick = () => handleUserInput(q);
+        options.appendChild(btn);
+      });
+    }
 
-      const lower = input.toLowerCase();
+    function appendMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.className = `message ${sender}`;
+      const avatar = document.createElement("img");
+      avatar.className = "avatar";
+      avatar.src = sender === "bot" ? "https://i.imgur.com/botAvatar.png" : "https://i.imgur.com/userAvatar.png";
+      msg.appendChild(avatar);
+      const span = document.createElement("span");
+      span.textContent = text;
+      msg.appendChild(span);
+      chat.insertBefore(msg, options);
+    }
 
-      let found = false;
-      for (const key in responses) {
-        if (lower.includes(key)) {
-          addMessage("Assistant", responses[key]);
-          found = true;
+    function handleUserInput(inputText = null) {
+      const text = inputText || userInput.value.trim();
+      if (!text) return;
+      appendMessage(text, "user");
+      userInput.value = "";
+
+      let response = "🤖 Assistant en développement. Pose-moi une autre question ou sélectionne une option.";
+      for (let key in responses) {
+        if (text.toLowerCase().includes(key.toLowerCase())) {
+          response = responses[key];
           break;
         }
       }
 
-      if (!found) {
-        addMessage("Assistant", "Je ne suis pas encore entraîné pour ça. Le site est en développement, merci pour ta compréhension ! 🤖");
-      }
+      appendMessage(response, "bot");
+      setTimeout(() => ratingBox.style.display = 'block', 3000);
 
-      document.getElementById("userInput").value = "";
+      if (!inputText) loadOptions();
     }
 
-    function quickQuestion(question) {
-      document.getElementById("userInput").value = question;
-      handleUserInput();
+    function rate(score) {
+      appendMessage(`Merci pour ta note de ${score} étoile(s) ⭐`, "bot");
+      ratingBox.style.display = 'none';
+      localStorage.setItem("kybraRating", score);
     }
 
-    function addMessage(sender, text) {
-      const p = document.createElement("p");
-      p.innerHTML = `<strong>${sender} :</strong> ${text}`;
-      chat.appendChild(p);
-      chat.scrollTop = chat.scrollHeight;
-    }
-
-    function rate(stars) {
-      const msg = document.getElementById("rating-msg");
-      switch (stars) {
-        case 1: msg.innerText = "😅 Aïe ! Je vais m'améliorer !"; break;
-        case 2: msg.innerText = "Hmm… Merci, je m'entraîne encore 🤖"; break;
-        case 3: msg.innerText = "Merci ! Je ferai encore mieux 😄"; break;
-        case 4: msg.innerText = "Merci beaucoup ! Ravi de t’aider 😎"; break;
-        case 5: msg.innerText = "🔥 Wow ! Merci pour les 5 étoiles 💖"; break;
-      }
-    }
+    window.onload = () => {
+      loadOptions();
+    };
   </script>
 </body>
 </html>
