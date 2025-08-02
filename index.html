@@ -203,181 +203,61 @@
     </div>
 
     <!-- Assistant Kybra -->
-<div id="kybra-chatbot" style="position: fixed; bottom: 20px; right: 20px; z-index: 999;">
-  <button id="chat-toggle" style="background-color: #34a853; color: white; border: none; border-radius: 50%; width: 60px; height: 60px; font-size: 30px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-    💬
-  </button>
-  <div id="chat-container" style="display: none; background: white; width: 320px; max-height: 500px; border-radius: 16px; box-shadow: 0 0 20px rgba(0,0,0,0.2); overflow: hidden; flex-direction: column;">
-    <div style="background: #34a853; color: white; padding: 12px; font-weight: bold;">Assistant Kybra 🤖</div>
-    <div id="chat-messages" style="padding: 10px; height: 300px; overflow-y: auto; font-family: sans-serif; font-size: 14px;"></div>
-    <div style="padding: 10px; display: flex; gap: 5px;">
-      <input type="text" id="user-input" placeholder="Écrivez ici..." style="flex: 1; padding: 8px; border-radius: 10px; border: 1px solid #ccc;">
-      <button onclick="sendMessage()" style="background: #34a853; border: none; color: white; padding: 8px 12px; border-radius: 10px; cursor: pointer;">Envoyer</button>
+     <div class="game">
+      <h2>🎯 Jeu KYBRA – Trouve le bon code et gagne !</h2>
+      <p>Devine le numéro caché entre 1 et 1000. Tu as 7 essais ! Si tu trouves, un bouton WhatsApp s’affiche et tu remportes un produit gratuit.</p>
+      <input type="number" id="guessInput" placeholder="Entre un nombre entre 1 et 1000" />
+      <button onclick="checkGuess()">Valider</button>
+      <p id="gameMessage"></p>
+      <div id="winButton" style="display:none;">
+        <a class="btn-whatsapp" href="https://wa.me/50935196415?text=J’ai%20trouvé%20le%20code%20gagnant%20du%20jeu%20Kybra%20et%20je%20réclame%20mon%20cadeau!">🎉 Réclamer mon produit gratuit</a>
+      </div>
+      <p>⚠️ Une fois les 7 essais épuisés, le jeu se réinitialise automatiquement et le code change. Recharger la page ne vous aidera pas 😉 Seul le premier qui envoie le bon code gagne !</p>
     </div>
-    <div id="question-suggestions" style="padding: 10px; background: #f9f9f9; border-top: 1px solid #eee;"></div>
   </div>
-</div>
 
-    <!-- Mini-Jeu -->
-    <div id="game">
-      <h3>🎯 Jeu : Devinez le nombre entre 1 et 1000</h3>
-      <input type="number" id="guessInput" placeholder="Entrez votre nombre...">
-      <button onclick="submitGuess()">Essayer</button>
-      <p id="gameResult"></p>
-    </div>
-
-    <!-- Évaluation -->
-    <div class="rating">
-      <h3>Noter notre boutique</h3>
-      <span class="star" onclick="rate(1)">★</span>
-      <span class="star" onclick="rate(2)">★</span>
-      <span class="star" onclick="rate(3)">★</span>
-      <span class="star" onclick="rate(4)">★</span>
-      <span class="star" onclick="rate(5)">★</span>
-    </div>
-
+  <div class="chatbot">
+    <strong>🤖 Assistance KYBRA</strong>
+    <button onclick="showAnswer('📦 Livraison : 24h à 48h à Carrefour')">📦 Délais de livraison ?</button>
+    <button onclick="showAnswer('💳 Paiement à la livraison en cash ou MonCash')">💳 Moyens de paiement ?</button>
+    <button onclick="showAnswer('🛍️ Produits : Montre, T-shirt, Chaussures, Casque, Basket')">🛍️ Quels produits disponibles ?</button>
+    <div class="chatbot-response" id="chatbotAnswer"></div>
   </div>
+
+  <footer>
+    <p>© 2025 Kybra. Tous droits réservés.</p>
+  </footer>
 
   <script>
-  const toggleBtn = document.getElementById("chat-toggle");
-  const chatBox = document.getElementById("chat-container");
-  const chatMessages = document.getElementById("chat-messages");
-  const input = document.getElementById("user-input");
-  const questionSuggestions = document.getElementById("question-suggestions");
+    const correctNumber = Math.floor(Math.random() * 1000) + 1;
+    let attempts = 0;
 
-  const responses = {
-    "bonjour": "Bonjour et bienvenue sur Kybra 👋. En quoi puis-je vous aider aujourd'hui ?",
-    "tu fais quoi": "Je suis l’assistant de Kybra ! Je peux t’aider à commander un produit, te parler des moyens de paiement ou te faire une blague 😄",
-    "où vous livrez": "Pour l’instant, nous livrons uniquement à Carrefour 🛵.",
-    "moyens de paiement": "Nous acceptons le paiement à la livraison 💵. Bientôt d’autres options seront disponibles !",
-    "produits": "Nous avons des montres, casques Bluetooth, sacs à main, chaussures… Tu veux voir lequel ? 👀",
-    "casque": "Le casque Bluetooth est à 2500 HTG. Il est super pour écouter de la musique 🎧. Souhaitez-vous commander ?",
-    "chaussures": "Les chaussures femme chic sont à 2000 HTG. Une vraie touche d’élégance 👠. Tu veux les commander ?",
-    "sac": "Le sac à main est à 1800 HTG, idéal pour sortir avec style 👜. Tu veux passer commande ?",
-    "montre": "La montre homme élégante est à 1500 HTG. Elle te donnera une allure pro 🕒. Souhaites-tu la commander ?",
-    "t-shirt": "Nos t-shirts 'King & Queen' sont stylés pour les couples 👑. Intéressé ?",
-    "aide": "Je peux répondre à tes questions sur Kybra ou t’orienter vers un produit.",
-    "kybra": "Kybra est une boutique dynamique qui vise à faciliter le shopping rapide via WhatsApp 📱.",
-    "commande": "Indique-moi simplement le nom du produit et je te redirige vers WhatsApp pour commander.",
-    "site": "Le site est en constante évolution ! Bientôt plus de produits, plus d’options 💼.",
-    "evaluation": "Merci pour votre retour ! Notez Kybra de 1 à 5 🌟.",
-    "kenny": "Kenny est le fondateur de Kybra, il a une vision moderne du e-commerce 💡."
-  };
+    function checkGuess() {
+      const userGuess = parseInt(document.getElementById("guessInput").value);
+      const message = document.getElementById("gameMessage");
 
-  const defaultResponses = [
-    "Désolé, je ne suis pas encore assez intelligent pour comprendre ça 🧠💤",
-    "Essaie avec des mots comme 'casque', 'livraison', ou 'commande' 😉",
-    "Je suis encore en développement. Tu peux m'aider en posant des questions simples 🙏"
-  ];
-
-  const questions = [
-    "Quels sont les moyens de paiement ?",
-    "Où livrez-vous ?",
-    "Quel est le prix du casque Bluetooth ?",
-    "Parlez-moi du sac à main.",
-    "C’est qui Kenny ?",
-    "Que propose Kybra ?",
-    "Je veux commander une montre.",
-    "Comment passer une commande ?",
-    "Les t-shirts King & Queen sont disponibles ?"
-  ];
-
-  function sendMessage() {
-    const userMsg = input.value.trim();
-    if (!userMsg) return;
-    addMessage("Vous", userMsg, true);
-    input.value = "";
-
-    let found = false;
-    for (let key in responses) {
-      if (userMsg.toLowerCase().includes(key)) {
-        addMessage("Kybra", responses[key], false);
-        found = true;
-        break;
-      }
-    }
-
-    if (!found) {
-      const fallback = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-      addMessage("Kybra", fallback, false);
-    }
-
-    setTimeout(showSuggestions, 1000);
-  }
-
-  function addMessage(sender, text, isUser) {
-    const message = document.createElement("div");
-    message.innerHTML = `<strong style="color: ${isUser ? '#333' : '#34a853'};">${sender}:</strong> ${text}`;
-    message.style.padding = "6px 0";
-    message.style.textAlign = isUser ? "right" : "left";
-    chatMessages.appendChild(message);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  function showSuggestions() {
-    const suggestionList = questions.sort(() => 0.5 - Math.random()).slice(0, 3);
-    questionSuggestions.innerHTML = "";
-    suggestionList.forEach(q => {
-      const btn = document.createElement("button");
-      btn.textContent = q;
-      btn.style.margin = "4px";
-      btn.style.padding = "6px 10px";
-      btn.style.border = "1px solid #ccc";
-      btn.style.borderRadius = "10px";
-      btn.style.background = "#f1f1f1";
-      btn.style.cursor = "pointer";
-      btn.onclick = () => {
-        input.value = q;
-        sendMessage();
-      };
-      questionSuggestions.appendChild(btn);
-    });
-  }
-
-  toggleBtn.onclick = () => {
-    chatBox.style.display = chatBox.style.display === "none" ? "flex" : "none";
-  };
-
-  // Message d’accueil
-  window.onload = () => {
-    chatBox.style.display = "none";
-    setTimeout(() => {
-      chatBox.style.display = "flex";
-      addMessage("Kybra", "Bienvenue chez Kybra 👋. Je suis là pour t'aider à explorer nos produits ou passer une commande !", false);
-      showSuggestions();
-    }, 1000);
-  };
-</script>
-
-    // Jeu
-    const secretNumber = Math.floor(Math.random() * 1000) + 1;
-    let attempts = 7;
-    function submitGuess() {
-      const guess = parseInt(document.getElementById("guessInput").value);
-      const result = document.getElementById("gameResult");
-      if (isNaN(guess)) {
-        result.textContent = "Veuillez entrer un nombre valide.";
+      if (isNaN(userGuess)) {
+        message.textContent = "Entrez un nombre valide.";
         return;
       }
-      attempts--;
-      if (guess === secretNumber) {
-        result.innerHTML = `🎉 Bravo ! Vous avez gagné ! <a href="https://wa.me/50935196415?text=J'ai gagné le jeu Kybra et je veux mon cadeau 🎁">Cliquez ici pour réclamer sur WhatsApp</a>`;
-      } else if (attempts > 0) {
-        result.textContent = guess > secretNumber ? "Trop grand !" : "Trop petit !";
+
+      attempts++;
+      if (userGuess === correctNumber) {
+        message.textContent = "🎉 Bravo ! Tu as deviné le bon numéro.";
+        document.getElementById("winButton").style.display = "block";
+      } else if (attempts >= 7) {
+        message.textContent = "❌ Tu as utilisé tes 7 essais. Le code a été réinitialisé.";
+        setTimeout(() => window.location.reload(), 3000);
+      } else if (userGuess < correctNumber) {
+        message.textContent = "🔼 Trop bas ! Essaye encore.";
       } else {
-        result.textContent = `😢 Vous avez perdu ! Le nombre était ${secretNumber}.`;
+        message.textContent = "🔽 Trop haut ! Essaye encore.";
       }
     }
 
-    // Évaluation
-    function rate(score) {
-      const stars = document.querySelectorAll(".star");
-      stars.forEach((s, i) => {
-        s.classList.toggle("selected", i < score);
-      });
-      alert(`Merci pour votre note de ${score} étoile(s) !`);
+    function showAnswer(text) {
+      document.getElementById("chatbotAnswer").textContent = text;
     }
   </script>
-
 </body>
 </html>
