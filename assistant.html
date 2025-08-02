@@ -20,9 +20,33 @@
       padding: 0;
     }
 
+    nav {
+      background: white;
+      padding: 15px 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
     .chatbox {
       max-width: 600px;
-      margin: 40px auto;
+      margin: 0 auto 40px;
       background: white;
       border-radius: 16px;
       padding: 25px;
@@ -132,6 +156,16 @@
   </style>
 </head>
 <body>
+  <!-- 🌐 Barre de navigation KYBRA -->
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="about.html">À propos</a>
+    <a href="vendeur.html">Vendeur</a>
+    <a href="contact.html">Contact</a>
+    <a href="assistant.html">Assistant</a>
+  </nav>
+
+  <!-- 🤖 Assistant KYBRA -->
   <div class="chatbox" id="chat">
     <div class="message bot">
       <img src="https://i.imgur.com/botAvatar.png" alt="bot" class="avatar">
@@ -228,14 +262,4 @@
     }
 
     function rate(score) {
-      appendMessage(`Merci pour ta note de ${score} étoile(s) ⭐`, "bot");
-      ratingBox.style.display = 'none';
-      localStorage.setItem("kybraRating", score);
-    }
-
-    window.onload = () => {
-      loadOptions();
-    };
-  </script>
-</body>
-</html>
+      appendMessage(`Merci pour ta note de ${score} étoile(s) ⭐`, "
