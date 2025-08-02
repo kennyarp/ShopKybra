@@ -44,6 +44,11 @@
       color: var(--primary-color);
     }
 
+    nav a.active {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
     .chatbox {
       max-width: 600px;
       margin: 0 auto 40px;
@@ -158,11 +163,11 @@
 <body>
   <!-- 🌐 Barre de navigation KYBRA -->
   <nav>
-    <a href="index.html">Accueil</a>
-    <a href="about.html">À propos</a>
-    <a href="vendeur.html">Vendeur</a>
-    <a href="contact.html">Contact</a>
-    <a href="assistant.html">Assistant</a>
+    <a href="index.html">🏠 Accueil</a>
+    <a href="about.html">ℹ️ À propos</a>
+    <a href="vendeur.html">🛍 Vendeur</a>
+    <a href="contact.html">📞 Contact</a>
+    <a href="assistant.html">🤖 Assistant</a>
   </nav>
 
   <!-- 🤖 Assistant KYBRA -->
@@ -262,4 +267,18 @@
     }
 
     function rate(score) {
-      appendMessage(`Merci pour ta note de ${score} étoile(s) ⭐`, "
+      appendMessage(`Merci pour ta note de ${score} étoile(s) ⭐`, "bot");
+    }
+
+    // 🔄 Mise en surbrillance du lien actif
+    document.querySelectorAll("nav a").forEach(link => {
+      if (window.location.href.includes(link.getAttribute("href"))) {
+        link.classList.add("active");
+      }
+    });
+
+    // Charger les options au démarrage
+    window.onload = loadOptions;
+  </script>
+</body>
+</html>
