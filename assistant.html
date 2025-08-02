@@ -56,8 +56,6 @@
       border-radius: 16px;
       padding: 25px;
       box-shadow: 0 6px 24px rgba(0,0,0,0.1);
-      position: relative;
-      overflow: hidden;
     }
 
     .message {
@@ -161,7 +159,6 @@
   </style>
 </head>
 <body>
-  <!-- 🌐 Barre de navigation KYBRA -->
   <nav>
     <a href="index.html">🏠 Accueil</a>
     <a href="about.html">ℹ️ À propos</a>
@@ -170,7 +167,6 @@
     <a href="assistant.html">🤖 Assistant</a>
   </nav>
 
-  <!-- 🤖 Assistant KYBRA -->
   <div class="chatbox" id="chat">
     <div class="message bot">
       <img src="https://i.imgur.com/botAvatar.png" alt="bot" class="avatar">
@@ -256,29 +252,4 @@
       for (let key in responses) {
         if (text.toLowerCase().includes(key.toLowerCase())) {
           response = responses[key];
-          break;
-        }
-      }
-
-      appendMessage(response, "bot");
-      setTimeout(() => ratingBox.style.display = 'block', 3000);
-
-      if (!inputText) loadOptions();
-    }
-
-    function rate(score) {
-      appendMessage(`Merci pour ta note de ${score} étoile(s) ⭐`, "bot");
-    }
-
-    // 🔄 Mise en surbrillance du lien actif
-    document.querySelectorAll("nav a").forEach(link => {
-      if (window.location.href.includes(link.getAttribute("href"))) {
-        link.classList.add("active");
-      }
-    });
-
-    // Charger les options au démarrage
-    window.onload = loadOptions;
-  </script>
-</body>
-</html>
+          break[43dcd9a7-70db-4a1f-b0ae-981daa162054](https://github.com/c4software/bts-sio/tree/16f33285846e5ab07801a1fa25fee0a21f3173e8/tp%2Fjavascript%2Ftp2.md?citationMarker=43dcd9a7-70db-4a1f-b0ae-981daa162054 "1")
