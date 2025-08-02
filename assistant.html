@@ -5,271 +5,302 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Assistant Kybra</title>
   <style>
-    :root {
-      --bot-bg: #e0f7fa;
-      --user-bg: #c8e6c9;
-      --primary-color: #4CAF50;
-      --hover-color: #388E3C;
-      --accent: #2196F3;
-    }
-
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f5f5;
       margin: 0;
       padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+      height: 50px;
+      border-radius: 10px;
+      margin-right: 15px;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
     }
 
     nav {
-      background: white;
-      padding: 15px 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background-color: #2d4739;
       display: flex;
       justify-content: center;
-      gap: 18px;
       flex-wrap: wrap;
-      font-size: 16px;
-      margin-bottom: 20px;
     }
 
     nav a {
+      padding: 14px 20px;
+      color: #ffffff;
       text-decoration: none;
-      color: #333;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: 0.3s;
+      font-weight: bold;
+      transition: background 0.3s;
     }
 
     nav a:hover {
-      color: var(--primary-color);
+      background-color: #3a5f4a;
     }
 
-    nav a.active {
-      font-weight: bold;
-      color: var(--primary-color);
-    }
-
-    .chatbox {
+    .chatbot-container {
       max-width: 600px;
-      margin: 0 auto 40px;
+      margin: 50px auto;
       background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
-      position: relative;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 700px;
     }
 
-    .message {
-      margin: 12px 0;
-      padding: 12px 16px;
-      border-radius: 18px;
-      max-width: 80%;
-      line-height: 1.6;
-      animation: fadeIn 0.5s ease-in-out;
+    .chat-header {
+      background-color: #2d4739;
+      color: white;
+      padding: 15px;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .chat-box {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: #fafafa;
       display: flex;
+      flex-direction: column;
+      gap: 15px;
+      scroll-behavior: smooth;
+    }
+
+    .chat-bubble {
+      padding: 10px 15px;
+      border-radius: 20px;
+      max-width: 80%;
+      line-height: 1.4;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
+      font-size: 1rem;
+      animation: fadeIn 0.4s ease forwards;
     }
 
     .bot {
-      background-color: var(--bot-bg);
+      background-color: #e0e0e0;
       align-self: flex-start;
     }
 
     .user {
-      background-color: var(--user-bg);
+      background-color: #cce5dd;
       align-self: flex-end;
       margin-left: auto;
     }
 
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-    }
-
-    .options {
+    .chat-input {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
+      padding: 15px;
+      border-top: 1px solid #ccc;
+      background: #fff;
     }
 
-    .options button {
-      flex: 1 1 45%;
-      padding: 12px;
-      border: none;
-      background-color: var(--primary-color);
-      color: white;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .options button:hover {
-      background-color: var(--hover-color);
-    }
-
-    .input-area {
-      margin-top: 20px;
-      display: flex;
-      gap: 10px;
-    }
-
-    input[type="text"] {
-      flex: 1;
-      padding: 12px;
-      border-radius: 12px;
+    .chat-input input {
+      flex-grow: 1;
+      padding: 12px 15px;
       border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+      font-size: 1rem;
+      transition: border-color 0.3s;
     }
 
-    button.send {
-      padding: 12px 16px;
-      background-color: var(--accent);
+    .chat-input input:focus {
+      border-color: #2d4739;
+    }
+
+    .chat-input button {
+      margin-left: 12px;
+      padding: 12px 25px;
+      background-color: #2d4739;
       color: white;
       border: none;
-      border-radius: 12px;
+      border-radius: 20px;
       cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.3s;
     }
 
-    .rating {
-      margin-top: 20px;
-    }
-
-    .rating span {
-      font-size: 24px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .rating span:hover {
-      color: gold;
-      transform: scale(1.3);
+    .chat-input button:hover {
+      background-color: #3a5f4a;
     }
 
     @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(10px);}
-      to {opacity: 1; transform: translateY(0);}
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    @media (max-width: 600px) {
-      .options button {
-        flex: 1 1 100%;
-      }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+      margin: 40px 20px 10px;
+      user-select: none;
+    }
+
+    /* Scrollbar styling for modern browsers */
+    .chat-box::-webkit-scrollbar {
+      width: 8px;
+    }
+    .chat-box::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+    .chat-box::-webkit-scrollbar-thumb {
+      background: #2d4739;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
+
+  <header>
+    <img src="https://i.postimg.cc/QMCRxL7b/image-1753152017880.jpg" alt="Logo Kybra">
+    <h1>Assistant Kybra</h1>
+  </header>
+
   <nav>
     <a href="index.html">🏠 Accueil</a>
     <a href="about.html">ℹ️ À propos</a>
-    <a href="vendeur.html">🛍 Vendeur</a>
+    <a href="https://wa.me/50935196415?text=Bonjour%20Kybra%2C%20je%20souhaite%20devenir%20vendeur%20sur%20la%20plateforme.">🛍 Vendeur</a>
     <a href="contact.html">📞 Contact</a>
-    <a href="assistant.html" class="active">🤖 Assistant</a>
+    <a href="assistant.html" style="background-color:#3a5f4a;">🤖 Assistant</a>
   </nav>
 
-  <div class="chatbox" id="chat">
-    <div class="message bot">
-      <img src="https://i.imgur.com/botAvatar.png" alt="bot" class="avatar">
-      👋 Bienvenue chez Kybra Assistant. Pose ta question ou sélectionne une option.
+  <div class="chatbot-container">
+    <div class="chat-header">Pose ta question à Kybra 🤖</div>
+    <div class="chat-box" id="chatBox">
+      <div class="chat-bubble bot">👋 Salut ! Bienvenue chez Kybra Assistant. Comment puis-je t’aider aujourd’hui ?</div>
     </div>
-
-    <div class="options" id="options"></div>
-
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Pose ta question ici..." />
-      <button class="send" onclick="handleUserInput()">Envoyer</button>
-    </div>
-
-    <div class="rating" id="rating" style="display:none;">
-      <p>⭐ Comment évalues-tu mon aide ?</p>
-      <span onclick="rate(1)">★</span>
-      <span onclick="rate(2)">★</span>
-      <span onclick="rate(3)">★</span>
-      <span onclick="rate(4)">★</span>
-      <span onclick="rate(5)">★</span>
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Écris ta question ici..." autocomplete="off" />
+      <button onclick="sendMessage()">Envoyer</button>
     </div>
   </div>
 
+  <footer>© 2025 Kybra. Tous droits réservés.</footer>
+
   <script>
-    const chat = document.getElementById("chat");
-    const options = document.getElementById("options");
-    const userInput = document.getElementById("userInput");
-    const ratingBox = document.getElementById("rating");
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
 
-    const questions = [
-      "Quels sont les prix des baskets ?",
-      "Comment fonctionne la livraison ?",
-      "Quels moyens de paiement acceptez-vous ?",
-      "Qu'est-ce que Kybra ?",
-      "Comment commander une montre ?",
-      "Livrez-vous en dehors de Carrefour ?",
-      "Qui est Kenny ?",
-      "Quels produits recommandez-vous ?"
-    ];
-
+    // Questions-clés et réponses associées (clefs en minuscules)
     const responses = {
-      "baskets": "👟 Nos baskets brillantes sont disponibles pour seulement 2500 HTG ! Tu veux commander maintenant ? 😄",
-      "livraison": "📦 Pour le moment, nous livrons uniquement à Carrefour. Reste connecté, on s’étend bientôt !",
-      "paiement": "💳 Nous acceptons le paiement en espèces à la livraison, via MonCash ou NatCash.",
-      "kybra": "💎 Kybra est une jeune boutique en ligne stylée créée pour te proposer des produits tendance à petit prix. Tu veux voir les nouveautés ?",
-      "montre": "⌚ La montre élégante est à 2000 HTG. Elle est fine, classe et parfaite pour un cadeau ! Tu veux que je t’envoie le lien ?",
-      "carrefour": "🚚 Pour l’instant oui. On travaille dur pour desservir d'autres zones bientôt. Tu veux être notifié ?",
-      "kenny": "😂 Kenny c’est mon créateur. Que veux-tu savoir sur lui ?",
-      "recommandez": "🛍 On recommande les montres, les baskets et les sweats exclusifs KYBRA. Tu veux voir des photos ?"
+      "prix": "💰 Nos prix sont très compétitifs : baskets à partir de 2500 HTG, montres à 1500 HTG, et plus encore ! Tu veux commander ?",
+      "baskets": "👟 Nos baskets montantes brillantes sont très demandées ! Prix : 3200 HTG. Prêt à commander ?",
+      "montre": "⌚ La montre élégante est disponible à 1500 HTG. Parfaite pour un cadeau ou pour toi !",
+      "livraison": "🚚 Livraison disponible uniquement à Carrefour pour l’instant, mais on travaille à étendre ça bientôt.",
+      "paiement": "💳 Paiement en espèces à la livraison, MonCash et NatCash sont acceptés.",
+      "commande": "📦 Pour commander, clique sur le produit désiré et suis les instructions ou contacte-nous directement sur WhatsApp !",
+      "vendeur": "🛒 Tu veux devenir vendeur ? Clique sur le lien Vendeur en haut ou écris-nous sur WhatsApp : +509 3519 6415.",
+      "carrefour": "📍 Pour l’instant, la livraison est limitée à Carrefour uniquement. On espère étendre bientôt.",
+      "kybra": "✨ Kybra, c’est ta boutique locale pour des produits tendance à prix abordables avec une livraison rapide.",
+      "contact": "📞 Tu peux nous contacter via la page Contact ou directement sur WhatsApp au +509 3519 6415.",
+      "produits": "🛍️ Nous avons montres, baskets, t-shirts, casques Bluetooth, et plus encore. Quel produit t'intéresse ?",
+      "jeu": "🎯 Participe à notre jeu de devinette sur la page d’accueil ! Trouve le bon code et gagne un produit gratuit.",
+      "avis": "⭐ Merci de ta confiance ! N’hésite pas à nous donner ton avis via le formulaire de contact.",
+      "horaires": "⏰ Notre boutique en ligne est ouverte 24/7, mais le service client est disponible de 9h à 19h.",
+      "retour": "↩️ Pour les retours, contacte-nous sous 7 jours après la réception. Voir conditions sur la page Contact.",
+      "livraison gratuite": "🎁 Livraison gratuite pour toute commande au-dessus de 5000 HTG !",
+      "promotion": "🔥 Profite de nos promos exclusives sur certains produits, régulièrement mises à jour sur le site.",
+      "réduction": "💸 Inscris-toi à notre newsletter pour recevoir des réductions spéciales et être informé des nouveautés.",
+      "produit gratuit": "🎉 Trouve le code gagnant dans notre mini-jeu et gagne un produit gratuit !",
+      "cadeau": "🎁 Offre spéciale : un cadeau pour toute première commande confirmée.",
+      "garantie": "🔒 Tous nos produits bénéficient d’une garantie de 6 mois contre les défauts de fabrication.",
+      "qualité": "💎 Nous sélectionnons rigoureusement chaque produit pour garantir la meilleure qualité possible.",
+      "service client": "☎️ Notre équipe est disponible pour répondre à toutes tes questions via WhatsApp ou page Contact.",
+      "remise": "🔖 Les remises sont automatiques lors des promos, vérifie régulièrement nos offres !",
+      "adresse": "🏠 Nous sommes basés à Carrefour, mais la boutique est 100% en ligne.",
+      "newsletter": "📧 Inscris-toi à la newsletter pour ne rien rater des nouveautés et offres spéciales.",
+      "livraison rapide": "⚡ Livraison en 24h à 48h pour les commandes à Carrefour.",
+      "comment commander": "👉 Clique sur un produit, puis sur le bouton WhatsApp pour commander rapidement.",
+      "sac": "👜 Nos sacs sont à la fois stylés et pratiques, à partir de 2000 HTG.",
+      "casque": "🎧 Casque Bluetooth haute qualité à 2500 HTG, idéal pour écouter ta musique partout.",
+      "taille": "📏 Pour les vêtements et chaussures, consulte le guide des tailles disponible sur la page produit.",
+      "annulation": "❌ Tu peux annuler ta commande dans les 30 minutes après validation en nous contactant.",
+      "livraison express": "🚀 Livraison express possible, contacte-nous pour plus d’informations et tarifs.",
+      "mode paiement": "💳 Nous acceptons cash à la livraison, MonCash, NatCash et bientôt carte bancaire.",
+      "réclamation": "⚠️ En cas de problème, contacte notre service client via WhatsApp ou page Contact.",
+      "commande groupée": "👥 Commande groupée possible avec remise spéciale, contacte-nous pour en savoir plus.",
+      "service personnalisé": "🎨 Nous proposons bientôt un service personnalisé sur certains produits. Reste connecté !",
+      "frais de port": "📦 Les frais de port sont inclus pour Carrefour, hors zone peut être facturé.",
+      "délais": "⏳ Commande traitée sous 2 heures en journée ouvrée.",
+      "newsletter": "✉️ Inscris-toi pour recevoir les offres exclusives et nouveautés Kybra.",
+      "contact direct": "☎️ WhatsApp direct au +509 3519 6415 pour toute demande urgente.",
+      "guide d'achat": "🛒 Besoin d’aide pour choisir ? Demande-moi, je suis là pour ça !"
     };
 
-    function loadOptions() {
-      options.innerHTML = '';
-      const shuffled = [...questions].sort(() => 0.5 - Math.random());
-      shuffled.forEach(q => {
-        const btn = document.createElement("button");
-        btn.textContent = q;
-        btn.onclick = () => handleUserInput(q);
-        options.appendChild(btn);
-      });
-    }
+    // Fonction pour détecter la réponse adaptée à la question utilisateur
+    function getResponse(message) {
+      message = message.toLowerCase();
 
-    function appendMessage(text, sender) {
-      const msg = document.createElement("div");
-      msg.className = `message ${sender}`;
-      const avatar = document.createElement("img");
-      avatar.className = "avatar";
-      avatar.src = sender === "bot" ? "https://i.imgur.com/botAvatar.png" : "https://i.imgur.com/userAvatar.png";
-      msg.appendChild(avatar);
-      const span = document.createElement("span");
-      span.textContent = text;
-      msg.appendChild(span);
-      chat.insertBefore(msg, options);
-    }
-
-    function handleUserInput(inputText = null) {
-      const text = inputText || userInput.value.trim();
-      if (!text) return;
-      appendMessage(text, "user");
-      userInput.value = "";
-
-      let response = "🤖 Assistant en développement. Pose-moi une autre question ou sélectionne une option.";
       for (let key in responses) {
-        if (text.toLowerCase().includes(key.toLowerCase())) {
-          response = responses[key];
-          break;
+        if (message.includes(key)) {
+          return responses[key];
         }
       }
-
-      appendMessage(response, "bot");
-      setTimeout(() => ratingBox.style.display = 'block', 3000);
-      loadOptions();
+      // Si rien ne correspond, réponse générique
+      return "🤖 Désolé, je ne comprends pas très bien. Peux-tu reformuler ta question ou choisir une option du menu ?";
     }
 
-    function rate(score) {
-      appendMessage(`Merci pour ta note de ${score} étoile${score > 1 ? 's' : ''} ⭐`, "bot");
-      ratingBox.style.display = 'none';
+    // Ajoute un message dans la conversation
+    function addMessage(text, sender = "bot") {
+      const messageEl = document.createElement('div');
+      messageEl.classList.add('chat-bubble', sender);
+
+      // Ajout emoji profil
+      const emoji = sender === "bot" ? "🤖" : "🧑";
+      messageEl.textContent = `${emoji} ${text}`;
+
+      chatBox.appendChild(messageEl);
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    // Lancement des options au chargement
-    window.onload = loadOptions;
+    // Envoi message
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      userInput.value = '';
+
+      // Réponse avec délai pour simuler typing
+      setTimeout(() => {
+        const response = getResponse(text);
+        addMessage(response, 'bot');
+      }, 600);
+    }
+
+    // Permet d'envoyer en appuyant sur "Entrée"
+    userInput.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        sendMessage();
+      }
+    });
   </script>
 </body>
 </html>
